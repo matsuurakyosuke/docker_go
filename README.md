@@ -13,82 +13,54 @@ docker_go-master.zipを解凍し、docker_go-masterディレクトリをユー�
 cd C:\Users\docker_go-master
 ```
 <br><br>
-# ⑦ ビルドします
+# ③ ビルド実行
 ```
 docker-compose build
 ```
 →「Successfully built ●●●●●●●●●」が出たら完了！
 <br><br>
 
-# ⑩ ビルドしたイメージからコンテナを起動します 
+# ④ ビルドしたイメージからコンテナを起動します 
 ```
 docker-compose up -d
 ```
 <br><br>
-<br>
 # ★チェックポイント★
 正常に起動しているかを確認
 ```
 docker ps -a
 ```
-↑のように「docker_go-master_app」のコンテナがupしていればOK！
+Creating docker_go-master_app_1 ... done 
+↑のように「docker_go-master_app_1」のコンテナがupしていればOK！
 <br><br>
 
-# ⑪ WEBのコンテナに接続します
+# ⑤ \docker_go-master配下にmain.goファイルを作成
+<br><br>
+
+# ⑥ main.goファイルを編集し、Hello Worldを出力させる
 ```
-docker exec -it myapp_web_1 bash
+package main
+
+import "fmt"
+
+func main() {
+  fmt.Printf("Hello World\n")
+}
+```
+<br><br>
+
+# ⑦ WEBのコンテナに接続します
+```
+docker exec -it docker_go-master_app_1 bash
 ```
 
 <br><br>
-# ⑫ 以下を、１行ずつ実行します
+# ⑧ コンテナ内でgoファイルを実行
 ```
-rails g model Employee number:string name:string date:string
+go run main.go
 ```
-```
-rails db:migrate
-```
-```
-rails g controller Employees
-```
-<br><br>
-# ⑬ myapp\app\controllers　配下の以下のファイルを編集します
-対象ファイル：employees_controller.rb
-```
-class EmployeesController < ApplicationController
-  def index
-    @employees = Employee.all
-  end
-end
-```
-<br><br>
-# ⑭ myapp\db　配下の以下のファイルを編集します
-対象ファイル：seeds.rb
-```
-Employee.create(
-  [
-    {
-      number: '001',
-      name: 'Yamada',
-      date: '2018/01/01',
-    },
-    {
-      number: '002',
-      name: 'Tanaka',
-      date: '2019/04/01',
-    },
-    {
-      number: '003',
-      name: 'Sato',
-      date: '2019/05/01',
-    },
-  ],
-)
-```
-<br><br>
-# ⑮ ⑭のファイルを元にデータを作成します
-```
-rails db:seed
-```
+「Hello World」が出力されていれば成功
+![キャプチャ](https://user-images.githubusercontent.com/66953939/84671123-f11b2d00-af61-11ea-8f95-3050b48159de.png)
 <br><br>
 # ⑯ myapp\config　配下の以下のファイルを編集します
 対象ファイル：routes.rb
