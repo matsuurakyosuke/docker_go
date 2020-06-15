@@ -121,14 +121,14 @@ go run main.go
 ![キャプチャ](https://user-images.githubusercontent.com/66953939/84678989-b1594300-af6b-11ea-808f-6f32a12a66fa.png)
 <br><br>
 
-# ⑫ main.goファイルを編集し、ANAのページで予約を自動化していく
+# ⑫ main.goファイルを編集し、ANAのページで予約を自動化していく・・・1
 ⑨で編集した「page.Screenshot("screenshot/Google.png")」に続けてコードを記載する。<br>
 ```
 	// 自動操作
 	//ANA日本語ページ遷移
 	page.Navigate("https://www.ana.co.jp/ja/jp")
 	log.Printf(page.Title())
-  page.Screenshot("screenshot/ana-top.png")
+        page.Screenshot("screenshot/ana-top.png")
 	//検索ボタン押下
 	page.FirstByName("arrivalAirport").Submit()
 	page.Screenshot("screenshot/ana-1.png")
@@ -138,17 +138,65 @@ go run main.go
 ```
 <br><br>
 
-# ⑫ ブラウザでANAの区間検索ページで要素を検索して、片道のIDを取得し"hogehoge"を書き換える
+# ⑬ ブラウザでANAの区間検索ページで要素を検索して、片道のIDを取得し"hogehoge"を書き換える
 URL:https://www.ana.co.jp/ja/jp <br>
 上記URLで検索ボタンを押下すると、区間ページへ遷移できる。
 <br><br>
 
 ![キャプチャ](https://user-images.githubusercontent.com/66953939/84682510-b240a380-af70-11ea-9aaa-381d7f67df82.png)
 ```
+page.FindByID("hogehoge").Click()
+↓
 page.FindByID("buttonOneWay").Click()
 ```
 <br><br>
+# ⑭ main.goファイルを編集し、ANAのページで予約を自動化していく・・・2
+⑫で編集した「page.Screenshot("screenshot/ana-2.png")」に続けてコードを記載する。<br>
+```
+	//到着地「札幌」選択
+	page.FindByID("arrivalAirport").Select("札幌(千歳)")
+	page.Screenshot("screenshot/ana-3.png")
+	//カレンダーテキスト押下
+	page.FindByID("outwardEmbarkationDate").Click()
+	page.Screenshot("screenshot/ana-4.png")
+	//カレンダーでXpathを指定して8月10日を指定
+	page.FirstByXPath("hogehoge").Click()
+	page.Screenshot("screenshot/ana-5.png")
+	//最安値指定
+	page.FirstByLabel("最安運賃を検索").Click()
+	page.Screenshot("screenshot/ana-6.png")
+	//検索ボタン押下
+	page.FirstByXPath("/html/body/div[4]/div/div[1]/form/div[2]/div[4]/p/input").Click()
+	page.Screenshot("screenshot/ana-7.png")
+	//値段を押下
+	page.FirstByLabel("hogehoge").Click()
+	page.Screenshot("screenshot/ana-8.png")
+	//確認ボタン押下
+	page.FirstByName("j_idt331").Click()
+	page.Screenshot("screenshot/ana-9.png")
+	//一般の方押下
+	page.FirstByName("j_idt318").Click()
+	page.Screenshot("screenshot/ana-10.png")
+```
+# ⑮ 要素を検索して、搭乗日8/10のXpathと値段のラベルを取得し"hogehoge"を書き換える
+Xpathの要素検索<br>
+下記図の①→②→③の順番で取得する。<br>
+![キャプチャ](https://user-images.githubusercontent.com/66953939/84685535-6f34ff00-af75-11ea-8d6e-4ff2b8d3893e.png)
 <br>
+```
+page.FirstByXPath("hogehoge").Click()
+↓
+page.FirstByXPath("/html/body/div[9]/div/div/div/div/div[3]/table/tbody/tr[3]/td[2]/a").Click()
+```
+<br>
+ラベルの検索<br>
+![キャプチャ](https://user-images.githubusercontent.com/66953939/84686408-d8694200-af76-11ea-8e3b-551d611ba86d.png)
+```
+page.FirstByLabel("hogehoge").Click()
+↓
+page.FirstByLabel("18,860円").Click()
+```
+
 # ★クラウド上でRailsを起動しよう★
 使用するクラウド・・・Azure
 <br><br>
