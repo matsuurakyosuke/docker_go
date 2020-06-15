@@ -28,9 +28,9 @@ docker-compose up -d
 # ★チェックポイント★
 正常に起動しているかを確認
 ```
-docker ps -a
+docker ps
 ```
-Creating docker_go-master_app_1 ... done 
+Creating docker_go-master_app_1 ... done <br>
 ↑のように「docker_go-master_app_1」のコンテナがupしていればOK！
 <br><br>
 
@@ -62,58 +62,91 @@ go run main.go
 「Hello World」が出力されていれば成功
 ![キャプチャ](https://user-images.githubusercontent.com/66953939/84671123-f11b2d00-af61-11ea-8f95-3050b48159de.png)
 <br><br>
-# ⑯ myapp\config　配下の以下のファイルを編集します
-対象ファイル：routes.rb
-```
-Rails.application.routes.draw do
-  root to: 'employees#index'
-  resources :employees
-end
-```
-<br><br>
-# ⑰ 以下のコマンドで画面を作成します
-```
-touch app/views/employees/index.html.erb
-```
-
-<br><br>
-# ⑱ app/views/employees　配下の以下のファイルを編集します
-対象ファイル：index.html.erb
-```
-<h1>List of employees</h1>
-
-<table border="1" width="700" cellspacing="0" cellpadding="5" bordercolor="#333333" class="table table-hover">
-  <thead class="thead-dark">
-    <tr>
-      <th bgcolor="#87cefa" class="align-middle" scope="col" width="100"><font size="+1" color="#FFFFFF">Employee no</font></th>
-      <th bgcolor="#87cefa" class="align-middle" scope="col" width="400"><font size="+1" color="#FFFFFF">Name</font></th>
-      <th bgcolor="#87cefa" class="align-middle" scope="col" width="150"><font size="+1" color="#FFFFFF">Hire date</font></th>
-    </tr>
-  </thead>
-
-
-  <tbody>
-    <% @employees.each do |employee| %>
-      <tr scope="row">
-        <td><%= employee.number %></td>
-        <td><%= employee.name %></td>
-        <td><%= employee.date %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-```
-<br><br>
-# ⑲ 以下に接続して確認！
-```
-http://localhost:3000/
-```
-![image-20191121003744232](https://user-images.githubusercontent.com/53431136/69325948-53db6d00-0c8e-11ea-982e-650f9e31d71d.png)
-
+# ⑨ main.goファイルを編集し、googleのtopページのスクリーンショットを撮る
+※/docker_go-master配下にscreenshotフォルダを作成しておく。<br>
+![キャプチャ](https://user-images.githubusercontent.com/66953939/84674597-1dd14380-af66-11ea-8147-bc97fa0dc019.png)
 <br>
-このような画面が表示されたら完成！
+```
+package main
 
+import (
+	"github.com/sclevine/agouti"
+	"log"
+)
 
+func main() {
+	// Chromeを利用することを宣言
+	driver := agouti.ChromeDriver(
+		agouti.ChromeOptions("args", []string{
+			"--headless",
+			"--disable-gpu",
+			"--window-size=1280,1024",
+			"--disable-dev-shm-usage",
+			"--no-sandbox",
+		}),
+		agouti.Debug,
+	)
+
+	if err := driver.Start(); err != nil {
+		log.Printf("Failed to start driver: %v", err)
+	}
+	defer driver.Stop()
+
+	page, err := driver.NewPage(agouti.Browser("chrome"))
+	if err != nil {
+		log.Printf("Failed to open page: %v", err)
+	}
+
+	// Access to a target page
+	url := "https://www.google.co.jp/"
+	err = page.Navigate(url)
+	if err != nil {
+		log.Printf("Failed to navigate: %v", err)
+	}
+	// Get screen shot
+	page.Screenshot("screenshot/Google.png")
+}
+```
+<br><br>
+# ⑩ コンテナ内でgoファイルを実行
+```
+go run main.go
+```
+下記のようなエラーが発生した場合はmain.goファイルの文字コードをUTF-8に変更してください。<br>
+./main.go:9:11: invalid UTF-8 encoding
+<br><br>
+
+# ⑪ スクリーンショットの確認
+/docker_go-master配下に作成したscreenshotフォルダにGoogle.pngが作成されていることを確認<br>
+![キャプチャ](https://user-images.githubusercontent.com/66953939/84678989-b1594300-af6b-11ea-808f-6f32a12a66fa.png)
+<br><br>
+
+# ⑫ main.goファイルを編集し、ANAのページで予約を自動化していく
+⑨で編集した「page.Screenshot("screenshot/Google.png")」に続けてコードを記載する。<br>
+```
+	// 自動操作
+	//ANA日本語ページ遷移
+	page.Navigate("https://www.ana.co.jp/ja/jp")
+	log.Printf(page.Title())
+  page.Screenshot("screenshot/ana-top.png")
+	//検索ボタン押下
+	page.FirstByName("arrivalAirport").Submit()
+	page.Screenshot("screenshot/ana-1.png")
+	//区間検索「片道」押下
+	page.FindByID("hogehoge").Click()
+	page.Screenshot("screenshot/ana-2.png")
+```
+<br><br>
+
+# ⑫ ブラウザでANAの区間検索ページで要素を検索して、片道のIDを取得し"hogehoge"を書き換える
+URL:https://www.ana.co.jp/ja/jp <br>
+上記URLで検索ボタンを押下すると、区間ページへ遷移できる。
+<br><br>
+
+![キャプチャ](https://user-images.githubusercontent.com/66953939/84682510-b240a380-af70-11ea-9aaa-381d7f67df82.png)
+```
+page.FindByID("buttonOneWay").Click()
+```
 <br><br>
 <br>
 # ★クラウド上でRailsを起動しよう★
