@@ -1,8 +1,8 @@
 # ① Dockerfileをダウンロード
 <br>
 
-docker-hands-on-master.zipを解凍し、myappディレクトリをユーザー直下に配置します
-![キャプチャ](https://user-images.githubusercontent.com/53431136/69335083-7033d580-0c9f-11ea-9253-b1a876eae9ae.PNG)
+docker_go.zipを解凍し、docker_goディレクトリをユーザー直下に配置します
+![キャプチャ](https://github.com/matsuurakyosuke/docker_go/issues/1#issue-638839214)
 
 <br>
 
