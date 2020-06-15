@@ -229,7 +229,7 @@ go run main.go
 <br><br>
 # ⑲ screenshotフォルダ内にana-11.pngまでのキャプチャが撮れていることを確認する。
 <br><br>
-# ⑲ 完成コード全量
+# ⑳ 完成コード全量
 ```
 package main
 
