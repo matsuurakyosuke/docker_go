@@ -1,52 +1,25 @@
 # ① Dockerfileをダウンロード
 <br>
 
-docker_go.zipを解凍し、docker_goディレクトリをユーザー直下に配置します
-![キャプチャ](https://github.com/matsuurakyosuke/docker_go/issues/1#issue-638839214)
+docker_go-master.zipを解凍し、docker_go-masterディレクトリをユーザー直下に配置します
+![キャプチャ](https://user-images.githubusercontent.com/66953939/84660963-94fddc00-af54-11ea-90ff-e8fcc0af3e5f.png)
 
 <br>
 
-
-![image-20191119101214129](https://user-images.githubusercontent.com/53431136/69317135-a5c7c700-0c7d-11ea-9b27-40e50614be1f.png)
+![キャプチャ](https://user-images.githubusercontent.com/66953939/84664878-23289100-af5a-11ea-9818-8b3dd7beb8ca.png)
 <br><br>
-# ② ローカルにdocker_goのフォルダを作成し①のDockerfileを配置
+# ② コマンドプロントで解凍したdocker_go-masterまで移動
 ```
-cd C:\Users\myapp
-```
-<br><br>
-# ③ Railsの新規プロジェクトを作成します
-```
-docker-compose run web rails new . --force --no-deps --database=mysql
-```
-→実行するとmyapp配下にファイルが増えます
-<br><br>
-# ④ DBの設定を変更するため、一度コンテナを停止します
-```
-docker-compose down
+cd C:\Users\docker_go-master
 ```
 <br><br>
-# ⑤ DBの向きを変更します
-C:\Users\myapp\config\database.yml　を配布したファイルでファイルごと上書きします
-<br><br>
-# ⑥ ファイルを配置します
-C:\Users\myapp\mysql-confd　に　ファイル（default_authentication.cnf）を配置します
-<br><br>
-# ⑦ イメージをビルドします
+# ⑦ ビルドします
 ```
 docker-compose build
 ```
 →「Successfully built ●●●●●●●●●」が出たら完了！
 <br><br>
-# ⑧ 先にDBを起動します
-```
-docker-compose up -d db
-```
-<br><br>
-# ⑨ Railsのサービスを起動します
-```
-docker-compose run web rake db:create
-```
-<br><br>
+
 # ⑩ ビルドしたイメージからコンテナを起動します 
 ```
 docker-compose up -d
@@ -58,17 +31,7 @@ docker-compose up -d
 ```
 docker ps -a
 ```
-↑のように「myapp_web」と「mysql」のコンテナがupしていればOK！
-<br><br>
-
-以下に接続してみましょう！
-<br><br>
-```
-http://localhost:3000/
-```
-![rails](https://user-images.githubusercontent.com/53431136/69325441-85076d80-0c8d-11ea-9610-786f056a8201.png)
-
-
+↑のように「docker_go-master_app」のコンテナがupしていればOK！
 <br><br>
 
 # ⑪ WEBのコンテナに接続します
