@@ -134,19 +134,19 @@ go run main.go
 	page.FirstByName("arrivalAirport").Submit()
 	page.Screenshot("screenshot/ana-1.png")
 	//区間検索「片道」押下
-	page.FindByID("hogehoge").Click()
+	page.FindByID("hoge1").Click()
 	page.Screenshot("screenshot/ana-2.png")
 ```
 <br><br>
 
-# ⑬ ブラウザでANAの区間検索ページで要素を検索して、片道のIDを取得し"hogehoge"を書き換える
+# ⑬ ブラウザでANAの区間検索ページで要素を検索して、片道のIDを取得し"hoge1"を書き換える
 URL:https://www.ana.co.jp/ja/jp <br>
 上記URLで検索ボタンを押下すると、区間ページへ遷移できる。
 <br><br>
 
 ![キャプチャ](https://user-images.githubusercontent.com/66953939/84682510-b240a380-af70-11ea-9aaa-381d7f67df82.png)
 ```
-page.FindByID("hogehoge").Click()
+page.FindByID("hoge1").Click()
 ↓
 page.FindByID("buttonOneWay").Click()
 ```
@@ -161,7 +161,7 @@ page.FindByID("buttonOneWay").Click()
 	page.FindByID("outwardEmbarkationDate").Click()
 	page.Screenshot("screenshot/ana-4.png")
 	//カレンダーでXpathを指定して8月10日を指定
-	page.FirstByXPath("hogehoge").Click()
+	page.FirstByXPath("hoge2").Click()
 	page.Screenshot("screenshot/ana-5.png")
 	//最安値指定
 	page.FirstByLabel("最安運賃を検索").Click()
@@ -170,7 +170,7 @@ page.FindByID("buttonOneWay").Click()
 	page.FirstByXPath("/html/body/div[4]/div/div[1]/form/div[2]/div[4]/p/input").Click()
 	page.Screenshot("screenshot/ana-7.png")
 	//値段を押下
-	page.FirstByLabel("hogehoge").Click()
+	page.FirstByLabel("hoge3").Click()
 	page.Screenshot("screenshot/ana-8.png")
 	//確認ボタン押下
 	page.FirstByName("j_idt331").Click()
@@ -179,13 +179,13 @@ page.FindByID("buttonOneWay").Click()
 	page.FirstByName("j_idt318").Click()
 	page.Screenshot("screenshot/ana-10.png")
 ```
-# ⑮ 要素を検索して、搭乗日8/10のXpathと値段のラベルを取得し"hogehoge"を書き換える
+# ⑮ 要素を検索して、搭乗日8/10のXpathと値段のラベルを取得し"hoge2"と"hoge3"を書き換える
 Xpathの要素検索<br>
 下記図の①→②→③の順番で取得する。<br>
 ![キャプチャ](https://user-images.githubusercontent.com/66953939/84685535-6f34ff00-af75-11ea-8d6e-4ff2b8d3893e.png)
 <br>
 ```
-page.FirstByXPath("hogehoge").Click()
+page.FirstByXPath("hoge2").Click()
 ↓
 page.FirstByXPath("/html/body/div[9]/div/div/div/div/div[3]/table/tbody/tr[3]/td[2]/a").Click()
 ```
@@ -195,7 +195,7 @@ page.FirstByXPath("/html/body/div[9]/div/div/div/div/div[3]/table/tbody/tr[3]/td
 <br>
 
 ```
-page.FirstByLabel("hogehoge").Click()
+page.FirstByLabel("hoge3").Click()
 ↓
 page.FirstByLabel("18,860円").Click()
 ```
@@ -209,14 +209,14 @@ page.FirstByLabel("18,860円").Click()
 	page.FirstByXPath("/html/body/div[4]/div/div[1]/form/div[1]/table/tbody/tr/td[3]/input").Fill("タロウ")
 	page.FirstByXPath("/html/body/div[4]/div/div[1]/form/div[1]/table/tbody/tr/td[4]/input").Fill("25")
 	page.FirstByLabel("男性").Click()
-	page.FirstByName("hogehoge").Fill()
+	page.FirstByName("hoge4").Fill()
 	page.FirstByName("assistMailAddress").Fill("test@test.test.test")
 	page.FirstByName("assistConfirmMailAddress").Fill("test@test.test.test")
 	page.Screenshot("screenshot/ana-11.png")
 ```
-# ⑰ 要素を検索して、電話番号のName属性を取得し"hogehoge"を書き換え、Fill()内に電話番号を記載する。
+# ⑰ 要素を検索して、電話番号のName属性を取得し"hoge4"を書き換え、Fill()内に電話番号を記載する。
 ```
-page.FirstByName("hogehoge").Fill()
+page.FirstByName("hoge4").Fill()
 ↓
 page.FirstByName("telNo").Fill("123-456-7890")
 ```
