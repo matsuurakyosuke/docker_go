@@ -190,8 +190,9 @@ page.FirstByXPath("hoge2").Click()
 page.FirstByXPath("/html/body/div[9]/div/div/div/div/div[3]/table/tbody/tr[3]/td[2]/a").Click()
 ```
 <br>
-ラベルの検索<br>
-![キャプチャ](https://user-images.githubusercontent.com/66953939/84686408-d8694200-af76-11ea-8e3b-551d611ba86d.png)
+ラベルの検索  
+
+![a](https://user-images.githubusercontent.com/66953939/84686408-d8694200-af76-11ea-8e3b-551d611ba86d.png)
 <br>
 
 ```
